@@ -1,24 +1,17 @@
-import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import SingleNews from './SingleNews';
-
-interface NewsItem {
-  id: number;
-  [key: string]: any;
-}
+import News from "../types/News";
 
 interface ListProps {
-  news: {
-    results: NewsItem[];
-  };
+  news: News[];
 }
 
-const AllTheNews: React.FC<ListProps> = ({ news }) => {
+const AllTheNews = ({ news }: ListProps) => {
   return (
     <Row className="g-2">
-      {news.results.map((item) => (
-        <Col xs={12} md={4} key={item.id}>
-          <SingleNews news={item} />
+      {news.map((news) => (
+        <Col xs={12} md={4} key={news.id}>
+          <SingleNews news={news} />
         </Col>
       ))}
     </Row>

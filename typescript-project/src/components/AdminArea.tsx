@@ -2,17 +2,11 @@ import { useEffect, useState } from 'react';
 import Loading from './Loading';
 import Error from './Error';
 import AllTheNews from './AllTheNews';
+import News from '../types/News'
+import Response from '../types/Response'
 
-interface Article {
-    id: string;
-    title: string;
-    summary: string;
-    published_at: string;
-    image_url: string;
-  }
-
-const AdminArea: React.FC = () => {
-  const [data, setData] = useState<Article[]>([]);
+const AdminArea = () => {
+  const [data, setData] = useState<News[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -23,8 +17,8 @@ const AdminArea: React.FC = () => {
       try {
         const response = await fetch('https://api.spaceflightnewsapi.net/v4/articles/');
         if (response.ok) {
-            const news = await response.json()
-            setData(news)
+            const news: Response = await response.json()
+            setData(news.results)
             setIsLoading(false)
             setIsError(false)
           } else {
